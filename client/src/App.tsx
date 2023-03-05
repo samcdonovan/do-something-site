@@ -1,6 +1,6 @@
 import React from 'react';
 import './styles/App.css';
-//import { getWeather } from './api/weather';
+import { getWeather } from './utils/weather';
 import WeatherInfo from './components/WeatherInfo';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
   });
 
   React.useEffect(() => {
-    // getWeather(setWeather);
+    getWeather(setWeather);
   }, [])
 
   return (
