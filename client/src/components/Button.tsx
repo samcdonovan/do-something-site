@@ -14,8 +14,7 @@ function Button(props: Props): JSX.Element {
             (position) => {
                 latitude = position.coords.latitude;
                 longitude = position.coords.longitude;
-                console.log(latitude);
-                console.log(longitude);
+
                 let radius: number = 1500;
                 let type: string = "restaurant";
 
@@ -24,16 +23,13 @@ function Button(props: Props): JSX.Element {
                     + longitude + "&radius=" + radius + "&type=" + type)
                     .then((res) => res.json())
                     .then((data) => {
-                        props.callback(data);
+                        props.callback(data.data);
                     })
             },
             (error) => {
                 console.log("Location permission denied");
-
             }
         );
-
-
     }
 
 

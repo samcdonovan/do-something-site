@@ -53,8 +53,7 @@ app.get("/nearby_places", (req: Request, res: Response) => {
     axios(config)
         .then((response: any) => {
             let data: Array<Location>;
-            console.log(data);
-            data = response.data.map((location: any) => {
+            data = response.data.results.map((location: any) => {
                 return {
                     name: location.name,
                     vicinity: location.vicinity,
@@ -65,6 +64,7 @@ app.get("/nearby_places", (req: Request, res: Response) => {
                     website: location.url
                 }
             })
+            console.log(data);
             return res.send({
                 data
             })

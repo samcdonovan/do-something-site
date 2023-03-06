@@ -13,11 +13,16 @@ function App() {
     icon: "broken.png"
   });
 
-  const [results, setResults] = React.useState();
+  const [results, setResults] = React.useState(Array<Location>);
+  const [dataRetrieved, setDataRetrieved] = React.useState(false);
 
   React.useEffect(() => {
     getWeather(setWeather);
   }, [])
+
+  React.useEffect(() => {
+    setDataRetrieved(true);
+  }, [results])
 
   return (
     <div className="app">
@@ -26,6 +31,22 @@ function App() {
         <WeatherInfo data={weather} />
 
         <Button text="Search" callback={setResults} />
+
+        <div>
+          {dataRetrieved ? results.map((location: Location, index: number) => {
+            console.log(location);
+            return (
+              <div key={index}>
+                <p>{location.name}</p>
+                <p>{location.vicinity}</p>
+                <p>{location.rating}</p>
+                <p>{location.price_level}</p>
+                <img src={location.icon}></img>
+                <p>{location.website}</p>
+              </div>
+            )
+          }) : null}
+        </div>
       </header>
     </div>
   );
