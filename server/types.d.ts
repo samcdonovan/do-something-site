@@ -5,3 +5,13 @@ interface Weather {
     wind: number,
     icon: string
 }
+
+interface Location {
+    name: string,
+    vicinity: string
+    photos?: Array,
+    rating?: number,
+    price_level?: number,
+    icon: string,
+    website?: string
+}
