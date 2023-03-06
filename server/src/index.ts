@@ -4,11 +4,6 @@ import dotenv from 'dotenv';
 import axios, { AxiosRequestConfig } from 'axios';
 dotenv.config();
 
-var query = "london";
-var units = "metric";
-
-const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=" + process.env.OPEN_WEATHER + "&units=" + units;
-
 import { getWeather } from './api/weather.js';
 
 const app: Express = express();
@@ -17,6 +12,11 @@ app.use(cors()); // allow CORS
 app.use(express.json());
 
 app.get("/weather", (req: Request, res: Response) => {
+    var query = "london";
+    var units = "metric";
+
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&appid=" + process.env.OPEN_WEATHER + "&units=" + units;
+
     axios.get(url)
         .then((response: any) => {
             let weather_data = response.data;
@@ -37,6 +37,31 @@ app.get("/weather", (req: Request, res: Response) => {
             console.log("Error: " + error);
         })
 });
+
+app.get("/nearby_places", (req: Request, res: Response) => {
+    console.log(req.query);
+    var config = {
+        method: 'get',
+        url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=' +
+            req.query.latitude + '%2C' + req.query.longitude
+            + '&radius=' + 1500
+            + '&type=' + req.query.type
+            + '&key=' + process.env.GOOGLE_API_KEY,
+        headers: {}
+    };
+
+    axios(config)
+        .then((response: any) => {
+            let data = response.data;
+            console.log(data);
+            return res.send({
+                data
+            })
+        })
+        .catch(function (error: any) {
+            console.log("Error: " + error);
+        })
+})
 
 /* listen on port 3000 or the port specified in .env */
 const PORT = process.env.SERVER_PORT || 3124;

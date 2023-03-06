@@ -8,7 +8,7 @@ export interface Props {
 /**
  * 
  */
-function WeatherInfo(props: Props) {
+function WeatherInfo(props: Props): JSX.Element {
 
     return (
         <div>

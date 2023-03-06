@@ -29,5 +29,4 @@ export function getWeather() {
         .catch(function (error: any) {
             console.log("Error: " + error);
         })
-
 }

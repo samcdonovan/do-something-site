@@ -2,6 +2,7 @@ import React from 'react';
 import './styles/App.css';
 import { getWeather } from './utils/weather';
 import WeatherInfo from './components/WeatherInfo';
+import Button from './components/Button';
 
 function App() {
   const [weather, setWeather] = React.useState({
@@ -12,6 +13,8 @@ function App() {
     icon: "broken.png"
   });
 
+  const [results, setResults] = React.useState();
+
   React.useEffect(() => {
     getWeather(setWeather);
   }, [])
@@ -21,13 +24,8 @@ function App() {
       <header className="App-header">
 
         <WeatherInfo data={weather} />
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        </a>
+
+        <Button text="Search" callback={setResults} />
       </header>
     </div>
   );
