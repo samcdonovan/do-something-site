@@ -3,6 +3,7 @@ import './styles/App.css';
 import { getWeather } from './utils/weather';
 import WeatherInfo from './components/WeatherInfo';
 import Button from './components/Button';
+import Place from './components/Place';
 
 function App() {
   const [weather, setWeather] = React.useState({
@@ -36,14 +37,10 @@ function App() {
           {dataRetrieved ? results.map((location: Location, index: number) => {
             console.log(location);
             return (
-              <div key={index}>
-                <p>{location.name}</p>
-                <p>{location.vicinity}</p>
-                <p>{location.rating}</p>
-                <p>{location.price_level}</p>
-                <img src={location.icon}></img>
-                <p>{location.website}</p>
-              </div>
+              <Place
+                key={index}
+                locationData={location}
+              />
             )
           }) : null}
         </div>
